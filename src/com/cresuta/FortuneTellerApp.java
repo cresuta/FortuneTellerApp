@@ -8,45 +8,77 @@ public class FortuneTellerApp {
         System.out.println("Hello, welcome to We Can Code IT's Fortune Teller Application!");
         Scanner input = new Scanner(System.in);
 
-        System.out.println("What is your first name:");
-        String firstName = input.nextLine();
-//        System.out.println("Your first name is " + firstName);
-
-        System.out.println("What is our last name:");
-        String lastName = input.nextLine();
-//        System.out.println("Your last name is " + lastName);
-
-        System.out.println("What is your age:");
-        int userAge = input.nextInt();
-//        System.out.println("Your age is " + userAge);
-
-        System.out.println("What is your birth month number:");
-        int userBirthMonth = input.nextInt();
+        // Method calls
+        String firstName = getFirstName(input);
+        String lastName = getLastName(input);
+        int userAge = getUserAge(input);
+        int userBirthMonth = getUserBirthMonth(input);
         input.nextLine();
-//        System.out.println("Your birth month is " + userBirthMonth);
+        String favoriteColor = getFavoriteColor(input);
+        int siblingCount = getSiblingCount(input);
+        int yearsToRetirement = getYearsToRetirement(input, userAge);
+        String vacationHomeLocation = getVacationHomeLocation(input, siblingCount);
+        String modeOfTransportation = getModeOfTransportation(input, favoriteColor);
+        double bankBalance = getBankBalance(userBirthMonth);
 
+        //Display final message of your fortune
+        System.out.println(firstName + " " + lastName + " will retire in " + yearsToRetirement + " years" + "\n" +
+                "with " + "$" + bankBalance + " in their bank account, " + "\n" + "a vacation home in " +
+                vacationHomeLocation + "," + "\n" + "and they will drive a " + modeOfTransportation + ".");
+    }
+
+    public static String getFirstName(Scanner input){
+        System.out.println("What is your first name:");
+        return input.nextLine();
+    }
+
+    public static String getLastName(Scanner input){
+        System.out.println("What is your last name:");
+        return input.nextLine();
+    }
+
+    public static int getUserAge(Scanner input){
+        System.out.println("What is your age:");
+        return input.nextInt();
+    }
+
+    public static int getUserBirthMonth(Scanner input) {
+        System.out.println("What is your birth month number:");
+        int birthMonth = input.nextInt();
+        while(birthMonth < 1 || birthMonth > 12){
+            System.out.println("Birth Month number must be between 1 and 12:");
+            birthMonth = input.nextInt();
+        }
+        return birthMonth;
+
+    }
+
+    public static String getFavoriteColor(Scanner input){
         System.out.println("What is your favorite ROYGBIV color, type HELP if you don't know their colors:");
         String favoriteColor = input.nextLine();
         if(favoriteColor.equalsIgnoreCase("help")){
             System.out.println("ROYGBIV stands for Red, Orange, Yellow, Green, Blue, Indigo, Violet");
             favoriteColor = input.nextLine();
         }
-//        System.out.println("Your favorite color is " + favoriteColor);
+        return favoriteColor;
+    }
 
+    public static int getSiblingCount(Scanner input) {
         System.out.println("How many siblings do you have:");
-        int siblingCount = input.nextInt();
-//        System.out.println("You have " + siblingCount + " siblings.");
+        return input.nextInt();
+    }
 
-        // Years to retirement determined by siblingCount
+    public static int getYearsToRetirement(Scanner input, int userAge) {
         int yearsToRetirement = 0;
         if(userAge % 2 == 0){
             yearsToRetirement = 12;
         }else{
             yearsToRetirement = 14;
         }
-//        System.out.println("Years to retirement: " + yearsToRetirement);
+        return yearsToRetirement;
+    }
 
-        // Vacation home location determined by siblingCount
+    public static String getVacationHomeLocation(Scanner input, int siblingCount) {
         String vacationHomeLocation = "";
         if(siblingCount == 0){
             vacationHomeLocation = "Boca Raton, FL";
@@ -61,9 +93,22 @@ public class FortuneTellerApp {
         }else{
             vacationHomeLocation = "Chernoybl, Ukraine";
         }
-//        System.out.println("Your vacation home is in " + vacationHomeLocation);
+        return vacationHomeLocation;
+    }
 
-        // Mode of transportation determined by favoriteColor
+    public static double getBankBalance(int userBirthMonth){
+        double bankBalance = 0.0;
+        if(userBirthMonth > 0 && userBirthMonth <= 4){
+            bankBalance = 250000.99;
+        }else if (userBirthMonth > 4 && userBirthMonth <= 8){
+            bankBalance = 3365000.95;
+        }else if (userBirthMonth > 8 && userBirthMonth <= 12){
+            bankBalance = 45.65;
+        }
+        return bankBalance;
+    }
+
+    public static String getModeOfTransportation(Scanner input, String favoriteColor){
         String modeOfTransportation = "";
         switch (favoriteColor.toLowerCase()){
             case "red":
@@ -90,23 +135,7 @@ public class FortuneTellerApp {
             default:
                 modeOfTransportation = "Taxi Cab";
         }
-//        System.out.println("Your mode of transportation will be a " + modeOfTransportation);
-
-        // Bank balance determined by userBirthMonth
-        double bankBalance = 0.0;
-        if(userBirthMonth > 0 && userBirthMonth <= 4){
-            bankBalance = 250000.99;
-        }else if (userBirthMonth > 4 && userBirthMonth <= 8){
-            bankBalance = 3365000.95;
-        }else if (userBirthMonth > 8 && userBirthMonth <= 12){
-            bankBalance = 45.65;
-        }
-//        System.out.println("You have a bank balance of: " + bankBalance);
-
-        //Display final message of your fortune
-        System.out.println(firstName + " " + lastName + " will retire in " + yearsToRetirement + " years" + "\n" +
-                "with " + "$" + bankBalance + " in their bank account, " + "\n" + "a vacation home in " +
-                vacationHomeLocation + "," + "\n" + "and they will drive a " + modeOfTransportation + ".");
+        return modeOfTransportation;
     }
 }
 
